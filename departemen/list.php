@@ -11,7 +11,7 @@ require $base_dir . 'layout_header.php';
 <div class="card">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
         <h2 class="page-title" style="margin-bottom: 0;">Data Departemen</h2>
-        <a href="tambah.php" class="btn btn-primary">+ Tambah Departemen</a>
+        <a href="tambah.php" class="btn btn-primary"><i data-lucide="plus"></i> Tambah Departemen</a>
     </div>
 
     <div class="table-responsive">
@@ -31,10 +31,10 @@ require $base_dir . 'layout_header.php';
                     <td>
                         <div class="d-flex gap-2">
                             <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-success">
-                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">✏</span> Edit
+                                <i data-lucide="edit-2"></i> Edit
                             </a>
                             <a href="hapus.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus departemen?')">
-                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">🗑</span> Hapus
+                                <i data-lucide="trash-2"></i> Hapus
                             </a>
                         </div>
                     </td>

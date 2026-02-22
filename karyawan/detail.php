@@ -40,9 +40,9 @@ require $base_dir . 'layout_header.php';
         <h2 class="page-title" style="margin-bottom: 0; text-align: left;">Profil Karyawan</h2>
         <div class="d-flex gap-2">
             <a href="edit.php?id=<?= $data['id'] ?>" class="btn btn-success">
-                <span style="font-size: 0.8rem; margin-right: 0.2rem;">✏</span> Edit
+                <i data-lucide="edit-2"></i> Edit
             </a>
-            <a href="list.php" class="btn btn-outline">← Kembali</a>
+            <a href="list.php" class="btn btn-outline"><i data-lucide="arrow-left"></i> Kembali</a>
         </div>
     </div>
     

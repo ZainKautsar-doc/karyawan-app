@@ -33,13 +33,13 @@ require $base_dir . 'layout_header.php';
     <h3 class="section-title">Menu Utama</h3>
     <div class="menu-grid">
         <a href="karyawan/list.php" class="menu-card">
-            <span style="font-size: 1.5rem; margin-right: 0.5rem;">👥</span> Data Karyawan
+            <i data-lucide="users" style="width: 24px; height: 24px; margin-right: 0.5rem;"></i> Data Karyawan
         </a>
         <a href="departemen/list.php" class="menu-card">
-            <span style="font-size: 1.5rem; margin-right: 0.5rem;">🏢</span> Departemen
+            <i data-lucide="building-2" style="width: 24px; height: 24px; margin-right: 0.5rem;"></i> Departemen
         </a>
         <a href="jabatan/list.php" class="menu-card">
-            <span style="font-size: 1.5rem; margin-right: 0.5rem;">⭐</span> Jabatan
+            <i data-lucide="briefcase" style="width: 24px; height: 24px; margin-right: 0.5rem;"></i> Jabatan
         </a>
     </div>
 </div>

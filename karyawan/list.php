@@ -42,12 +42,12 @@ require $base_dir . 'layout_header.php';
         <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
             <form method="get" class="search-form d-flex gap-2">
                 <input type="text" name="q" class="form-control" placeholder="Cari nama / NIK / departemen / jabatan" value="<?= htmlspecialchars($q) ?>">
-                <button type="submit" class="btn btn-secondary">Cari</button>
+                <button type="submit" class="btn btn-secondary"><i data-lucide="search"></i> Cari</button>
                 <?php if($q): ?>
                     <a href="list.php" class="btn btn-outline" style="padding: 0.5rem;">Reset</a>
                 <?php endif; ?>
             </form>
-            <a href="tambah.php" class="btn btn-primary">+ Tambah Karyawan</a>
+            <a href="tambah.php" class="btn btn-primary"><i data-lucide="plus"></i> Tambah Karyawan</a>
         </div>
     </div>
     
@@ -91,13 +91,13 @@ require $base_dir . 'layout_header.php';
                     <td>
                         <div class="d-flex gap-2">
                             <a href="detail.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-secondary">
-                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">👁</span> Detail
+                                <i data-lucide="eye"></i> Detail
                             </a>
                             <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-success">
-                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">✏</span> Edit
+                                <i data-lucide="edit-2"></i> Edit
                             </a>
                             <a href="hapus.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus karyawan ini?')">
-                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">🗑</span> Hapus
+                                <i data-lucide="trash-2"></i> Hapus
                             </a>
                         </div>
                     </td>
