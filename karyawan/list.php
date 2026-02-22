@@ -1,0 +1,124 @@
+<?php
+$base_dir = '../';
+require $base_dir . 'auth.php';
+require $base_dir . 'koneksi.php';
+
+$q = $_GET['q'] ?? '';
+
+$sql = "
+SELECT 
+    k.*, 
+    d.nama_departemen, 
+    j.nama_jabatan
+FROM karyawan k
+LEFT JOIN departemen d ON k.departemen_id = d.id
+LEFT JOIN jabatan j ON k.jabatan_id = j.id
+";
+
+$params = [];
+
+if (!empty($q)) {
+    $sql .= " WHERE 
+        k.nama LIKE ? OR
+        k.nik LIKE ? OR
+        d.nama_departemen LIKE ? OR
+        j.nama_jabatan LIKE ?
+    ";
+    $params = ["%$q%","%$q%","%$q%","%$q%"];
+}
+
+$sql .= " ORDER BY k.nama";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$data = $stmt->fetchAll();
+
+require $base_dir . 'layout_header.php';
+?>
+
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 class="page-title" style="margin-bottom: 0;">Data Karyawan</h2>
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <form method="get" class="search-form d-flex gap-2">
+                <input type="text" name="q" class="form-control" placeholder="Cari nama / NIK / departemen / jabatan" value="<?= htmlspecialchars($q) ?>">
+                <button type="submit" class="btn btn-secondary">Cari</button>
+                <?php if($q): ?>
+                    <a href="list.php" class="btn btn-outline" style="padding: 0.5rem;">Reset</a>
+                <?php endif; ?>
+            </form>
+            <a href="tambah.php" class="btn btn-primary">+ Tambah Karyawan</a>
+        </div>
+    </div>
+    
+    <p style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.875rem;">Ditemukan: <?= count($data) ?> data</p>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Departemen</th>
+                    <th>Jabatan</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($data as $row): ?>
+                <tr>
+                    <td>
+                        <?php if($row['foto']): ?>
+                            <img src="../uploads/<?= htmlspecialchars($row['foto']) ?>" class="avatar-sm" alt="Foto">
+                        <?php else: ?>
+                            <div class="avatar-sm" style="background-color: var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.75rem;">No Img</div>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($row['nik']) ?></td>
+                    <td style="font-weight: 500; color: var(--text-primary);"><?= htmlspecialchars($row['nama']) ?></td>
+                    <td><?= htmlspecialchars($row['nama_departemen']) ?></td>
+                    <td><?= htmlspecialchars($row['nama_jabatan']) ?></td>
+                    <td>
+                        <?php
+                        $badgeClass = 'badge-secondary';
+                        if ($row['status_kerja'] == 'Tetap') $badgeClass = 'badge-success';
+                        elseif ($row['status_kerja'] == 'Kontrak') $badgeClass = 'badge-primary';
+                        ?>
+                        <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($row['status_kerja']) ?></span>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="detail.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-secondary">
+                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">👁</span> Detail
+                            </a>
+                            <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-success">
+                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">✏</span> Edit
+                            </a>
+                            <a href="hapus.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus karyawan ini?')">
+                                <span style="font-size: 0.8rem; margin-right: 0.2rem;">🗑</span> Hapus
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php if(count($data) === 0): ?>
+                <tr>
+                    <td colspan="7" style="text-align: center;">Tidak ada data karyawan.</td>
+                </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.getAttribute('href').includes('karyawan/list.php')) {
+            link.classList.add('active');
+        }
+    });
+</script>
+
+<?php require $base_dir . 'layout_footer.php'; ?>
