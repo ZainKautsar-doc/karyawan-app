@@ -61,9 +61,9 @@
                 <div class="menu-toggle">
                     <i data-lucide="menu"></i>
                 </div>
-                <div class="topbar-title">Sistem Informasi Pegawai</div>
+                <div class="topbar-title">Data Karyawan Perusahaan</div>
                 <div class="topbar-right">
-                    <a href="<?= $base_dir ?>index.php">Home</a>
+                    <a href="<?= $base_dir ?>index.php">Dashboard</a>
                 </div>
             </div>
 
